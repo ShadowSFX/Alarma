@@ -35,14 +35,20 @@ namespace Alarma
             this.label1 = new System.Windows.Forms.Label();
             this.progressBar1 = new System.Windows.Forms.ProgressBar();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
-            this.timer2 = new System.Windows.Forms.Timer(this.components);
+            this.label2 = new System.Windows.Forms.Label();
+            this.label3 = new System.Windows.Forms.Label();
+            this.txtPar = new System.Windows.Forms.TextBox();
+            this.txtEstrat = new System.Windows.Forms.TextBox();
+            this.btnDetener = new System.Windows.Forms.Button();
+            this.panel1 = new System.Windows.Forms.Panel();
+            this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(17, 50);
+            this.button1.Location = new System.Drawing.Point(18, 153);
             this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(173, 23);
+            this.button1.Size = new System.Drawing.Size(111, 23);
             this.button1.TabIndex = 0;
             this.button1.Text = "Activar Alarma";
             this.button1.UseVisualStyleBackColor = true;
@@ -50,7 +56,7 @@ namespace Alarma
             // 
             // txtTiempo
             // 
-            this.txtTiempo.Location = new System.Drawing.Point(69, 12);
+            this.txtTiempo.Location = new System.Drawing.Point(100, 115);
             this.txtTiempo.Name = "txtTiempo";
             this.txtTiempo.Size = new System.Drawing.Size(121, 23);
             this.txtTiempo.TabIndex = 1;
@@ -59,7 +65,7 @@ namespace Alarma
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(17, 15);
+            this.label1.Location = new System.Drawing.Point(47, 118);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(47, 15);
             this.label1.TabIndex = 2;
@@ -67,30 +73,86 @@ namespace Alarma
             // 
             // progressBar1
             // 
-            this.progressBar1.Location = new System.Drawing.Point(17, 90);
+            this.progressBar1.Location = new System.Drawing.Point(18, 182);
             this.progressBar1.Name = "progressBar1";
-            this.progressBar1.Size = new System.Drawing.Size(173, 23);
+            this.progressBar1.Size = new System.Drawing.Size(223, 35);
             this.progressBar1.TabIndex = 3;
             // 
             // timer1
             // 
+            this.timer1.Interval = 1000;
             this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
             // 
-            // timer2
+            // label2
             // 
-            this.timer2.Tick += new System.EventHandler(this.timer2_Tick);
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(18, 25);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(39, 15);
+            this.label2.TabIndex = 4;
+            this.label2.Text = "Pareja";
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(18, 53);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(58, 15);
+            this.label3.TabIndex = 5;
+            this.label3.Text = "Estrategia";
+            // 
+            // txtPar
+            // 
+            this.txtPar.Location = new System.Drawing.Point(82, 22);
+            this.txtPar.Name = "txtPar";
+            this.txtPar.Size = new System.Drawing.Size(122, 23);
+            this.txtPar.TabIndex = 6;
+            // 
+            // txtEstrat
+            // 
+            this.txtEstrat.Location = new System.Drawing.Point(82, 50);
+            this.txtEstrat.Name = "txtEstrat";
+            this.txtEstrat.Size = new System.Drawing.Size(122, 23);
+            this.txtEstrat.TabIndex = 7;
+            // 
+            // btnDetener
+            // 
+            this.btnDetener.Location = new System.Drawing.Point(130, 153);
+            this.btnDetener.Name = "btnDetener";
+            this.btnDetener.Size = new System.Drawing.Size(111, 23);
+            this.btnDetener.TabIndex = 8;
+            this.btnDetener.Text = "Detener Alarma";
+            this.btnDetener.UseVisualStyleBackColor = true;
+            this.btnDetener.Click += new System.EventHandler(this.btnDetener_Click);
+            // 
+            // panel1
+            // 
+            this.panel1.BackColor = System.Drawing.SystemColors.ControlDark;
+            this.panel1.Controls.Add(this.txtEstrat);
+            this.panel1.Controls.Add(this.txtPar);
+            this.panel1.Controls.Add(this.label3);
+            this.panel1.Controls.Add(this.label2);
+            this.panel1.Location = new System.Drawing.Point(18, 5);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(223, 95);
+            this.panel1.TabIndex = 9;
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(214, 133);
+            this.ClientSize = new System.Drawing.Size(258, 229);
+            this.Controls.Add(this.panel1);
+            this.Controls.Add(this.btnDetener);
             this.Controls.Add(this.progressBar1);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.txtTiempo);
             this.Controls.Add(this.button1);
             this.Name = "Form1";
             this.Text = "Alarma";
+            this.TopMost = true;
+            this.panel1.ResumeLayout(false);
+            this.panel1.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -103,7 +165,12 @@ namespace Alarma
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.ProgressBar progressBar1;
         private System.Windows.Forms.Timer timer1;
-        private System.Windows.Forms.Timer timer2;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.TextBox txtPar;
+        private System.Windows.Forms.TextBox txtEstrat;
+        private System.Windows.Forms.Button btnDetener;
+        private System.Windows.Forms.Panel panel1;
     }
 }
 
