@@ -31,8 +31,11 @@ namespace Alarma
 
         private void button1_Click(object sender, EventArgs e)
         {
+            txtTiempo.Enabled = false;
             txtPar.Enabled = false;
             txtEstrat.Enabled = false;
+            button1.Enabled = false;
+            btnDetener.Enabled = true;
 
             timer1.Stop();
             iSegundos = 0;
@@ -61,9 +64,13 @@ namespace Alarma
 
         private void btnDetener_Click(object sender, EventArgs e)
         {
-            timer1.Stop();
+            txtTiempo.Enabled = true;
             txtPar.Enabled = true;
             txtEstrat.Enabled = true;
+            button1.Enabled = true;
+            btnDetener.Enabled = false;
+
+            timer1.Stop();            
         }
     }
 }
