@@ -13,8 +13,15 @@ namespace Alarma
     public partial class Form1 : Form
     {
         string path;
+        string path2; 
         WMPLib.WindowsMediaPlayer wplayer;
+        bool bTimeAdjusted = false;
 
+        bool bEmpiezanMartingalas = false;
+        int iSegundosMartingalas = 0;
+        int iMinutosMartingalas = 0;
+
+        int iMinVela = 0;
         int iSegundos = 0;
         int iMinutos = 0;
 
@@ -22,11 +29,12 @@ namespace Alarma
         {
             InitializeComponent();
             path = AppDomain.CurrentDomain.BaseDirectory + "preview.mp3";
+            path2 = AppDomain.CurrentDomain.BaseDirectory + "preview2.mp3";
             wplayer = new WMPLib.WindowsMediaPlayer();
             wplayer.URL = @path;
+            wplayer.controls.stop();
 
-            timer1.Stop();
-            
+            timer1.Stop();            
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -47,19 +55,79 @@ namespace Alarma
 
         private void timer1_Tick(object sender, EventArgs e)
         {
+            if (bTimeAdjusted)
+            {
+                ProcesarSegundos();
+            }
+            else {
+                var date = DateTime.Now;                
+                if (date.AddSeconds(45).Minute % 5 == 0) {
+                    if (!checkBox1.Checked)
+                        wplayer.controls.play();
+                    
+                    bTimeAdjusted = true;
+                }
+            }
+        }
+
+        private void ProcesarSegundos() {
             iSegundos++;
             progressBar1.Value++;
 
-            if (iSegundos == 60) {
+            if (bEmpiezanMartingalas) {
+                iSegundosMartingalas++;
+
+                if (iSegundosMartingalas == 60) {
+                    iMinutosMartingalas++;
+                    iSegundosMartingalas = 0;
+
+                    if (radioButton2.Checked && iMinutosMartingalas == 1)
+                    {
+                        NotificacionExtra();
+                        iMinutosMartingalas = 0;
+                        iSegundosMartingalas = 0;
+                        bEmpiezanMartingalas = false;
+                    }
+
+                    if (radioButton3.Checked && iMinutosMartingalas == 2)
+                    {
+                        NotificacionExtra();
+                        iMinutosMartingalas = 0;
+                        iSegundosMartingalas = 0;
+                        bEmpiezanMartingalas = false;
+                    }
+                }
+            }
+
+            // notificación extra 15 segundos antes del minuto 6
+            if (iSegundos == 30 && iMinutos == 0) 
+                NotificacionExtra();
+
+            if (iSegundos == 60)
+            {
                 iSegundos = 0;
                 iMinutos++;
             }
 
-            if (iMinutos == Int32.Parse(txtTiempo.Text)) {
+            // primera notificación al minuto 5
+            if (iMinutos == Int32.Parse(txtTiempo.Text))
+            {
+                bEmpiezanMartingalas = true;
                 iMinutos = 0;
                 progressBar1.Value = 0;
-                wplayer.controls.play();
-            }                      
+                if (!checkBox1.Checked)
+                    wplayer.controls.play();
+            }
+        }
+
+        private void NotificacionExtra() {
+            wplayer = new WMPLib.WindowsMediaPlayer();
+            wplayer.URL = path2;
+            wplayer.controls.play();
+
+            wplayer = new WMPLib.WindowsMediaPlayer();
+            wplayer.URL = path;
+            wplayer.controls.stop();
         }
 
         private void btnDetener_Click(object sender, EventArgs e)
